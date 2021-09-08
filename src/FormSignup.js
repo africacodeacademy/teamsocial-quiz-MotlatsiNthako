@@ -3,7 +3,6 @@ import React from 'react';
 import MyForms from './MyForms';
 import validatein from './Validatein';
 
-
 const FormSignup = ({submitForm}) => {
   
   const  {handleChange, values, handleSubmit, errors} = MyForms( submitForm, validatein);

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import FormSignup from './FormSignup';
 import Category from './Category';
 
-
 const Form = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -11,13 +10,11 @@ const Form = () => {
   }
   return (
     <>
-      
         {!isSubmitted ? (
           <FormSignup submitForm={submitForm} />
         ) : (
           <Category/>
         )}
-     
     </>
   );
 };

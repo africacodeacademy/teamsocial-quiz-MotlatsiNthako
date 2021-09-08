@@ -96,6 +96,7 @@ import React, { useState } from 'react';
   ]
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const random_question = Math.floor(Math.random()* questions.length);
   const [showScore, setShowScore] = useState(false)
   const [score, setScore] = useState(0)
   const handleAnswerButtonClick = (isCorrect) => {
@@ -127,16 +128,16 @@ import React, { useState } from 'react';
             <>
               <div className='question-section'>
                 <div className='question-count'>
-                  <span>Question {currentQuestion + 1}</span>{questions.length}
+                  <span>Question {currentQuestion + 1}/</span>{questions.length}
                 </div>
                 <div className='question-text'>
-                  {questions[currentQuestion].questionText}
+                  {questions[random_question].questionText}
                 </div>
               </div>
 
               <div className='answer-section'>
                 {
-                  questions[currentQuestion].answerOptions.map((answerOptions) => (
+                  questions[random_question].answerOptions.map((answerOptions) => (
                     <button onClick={() => handleAnswerButtonClick(answerOptions.isCorrect)}>
                       {answerOptions.answerText}</button>
                   ))

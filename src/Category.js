@@ -3,7 +3,6 @@ import Africa from './Africa';
 import Sports from "./Sports";
 import Technology from "./Technology";
 
-
  function Category() {
     
         function Content(){
