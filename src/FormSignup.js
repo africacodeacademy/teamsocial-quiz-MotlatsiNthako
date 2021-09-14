@@ -10,6 +10,8 @@ const FormSignup = ({submitForm}) => {
     localStorage.setItem("player", values.username);
   };
 
+  
+
   return (
     <div>
         <h1>NINJA GAME</h1>

@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 
  function Africa() {
 
-  
-
   const questions = [
     {
       questionText: 'How many countries in Africa?',
@@ -98,18 +96,62 @@ import React, { useState } from 'react';
     },
   ]
 
+  //Randomizing without duplication
+
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const random_question = Math.floor(Math.random()* questions.length);
-  const [showScore, setShowScore] = useState(false)
-  const [score, setScore] = useState(0)
+  const [random, setRandom] = useState(questions);//Radomizing without duplication
+
+  function shuffleMyArray(array){
+    var number = array.length,
+    temp, index;
+
+    while(number> 0){
+      index = Math.floor(Math.random() * number);
+      number--;
+
+      temp = array[number];
+      array[number] = array[index];
+      array[index] = temp;
+    }
+    return array;
+  }
+  
+  //DROP DOWN
+const [option,setOption] = useState();
+const [selected_number, setSelected_number] = useState(10);
+
+  function selectedOption(event){
+    setOption(event.target.value);
+     setSelected_number(event.target.value);
+
+     
+    if(selected_number === 5){
+      shuffleMyArray(questions);
+      questions.splice(5, 5);
+      let temp = questions;
+      setRandom(temp);
+  
+    }
+    else{
+      shuffleMyArray(questions);
+      questions.splice(7, 3);
+      let temp = questions;
+      setRandom(temp);
+    }
+
+    return selected_number;
+  }
+  
+  const [showScore, setShowScore] = useState(false);
+  const [score, setScore] = useState(0);
   const handleAnswerButtonClick = (isCorrect) => {
     if (isCorrect === true) {
       setScore(score + 1);
     }
-
+  
     const nextQuetions = currentQuestion + 1;
     
-    if (nextQuetions < questions.length) {
+    if (nextQuetions <selected_number) {
       setCurrentQuestion(nextQuetions);
     }
     else {
@@ -119,11 +161,18 @@ import React, { useState } from 'react';
 
   return (
     <>
+    <div>
+  <select name='option' onChange={selectedOption}>
+    <option value="10">All questions</option>
+    <option value="5">5 questions</option>
+    <option value="7">7 questions</option>
+  </select>
+  </div>
       <h1 className='header'>KNOW AFRICA</h1>
       <div className="app">
         {showScore ? (
           <div className='score-section'>
-            You scored {score} out of {questions.length}
+            You scored {score} out of {selected_number}
           </div>
         )
           :
@@ -131,27 +180,27 @@ import React, { useState } from 'react';
             <>
               <div className='question-section'>
                 <div className='question-count'>
-                  <span>Question {currentQuestion + 1}/</span>{questions.length}
+                  <span>Question {currentQuestion + 1}/</span>{selected_number}
                 </div>
                 <div className='question-text'>
-                  {questions[random_question].questionText}
+                  {random[currentQuestion].questionText}
                 </div>
               </div>
 
               <div className='answer-section'>
                 {
-                  questions[random_question].answerOptions.map((answerOptions) => (
+                  random[currentQuestion].answerOptions.map((answerOptions) => (
                     <button onClick={() => handleAnswerButtonClick(answerOptions.isCorrect)}>
                       {answerOptions.answerText}</button>
                   ))
                 }
-              </div>
-            </>
+                </div>
+              </>
           )}
-      </div>
-    </>
-  );
-}
-
+        </div>
+      </>
+    );
+  }
+ 
 export default Africa;
 
